@@ -6,14 +6,18 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace Ficedula.FF7 {
+namespace Ficedula.FF7
+{
 
     [Flags]
-    public enum TargettingFlags {
+    public enum TargettingFlags
+    {
         None = 0,
         EnableSelection = 0x1,
         StartOnEnemy = 0x2,
@@ -24,8 +28,9 @@ namespace Ficedula.FF7 {
         AllRows = 0x40,
         RandomTarget = 0x80,
     }
-  
-    public class EquipItem {
+
+    public class EquipItem
+    {
         public int ID { get; set; }
         public EquipRestrictions Restrictions { get; set; }
 
@@ -40,15 +45,81 @@ namespace Ficedula.FF7 {
 
         public int EquippableOn { get; set; } //TODO - enum flags?
 
+        public void ApplyStatModifiers(StatModifiers statModifiers)
+        {
+            statModifiers.ApplyModifiers(this);
+        }
     }
 
-    public class MateriaItem : EquipItem {
+    public class StatModifiers
+    {
+        private ushort[] Modifiers = new ushort[4];
+        private ushort[] Values = new ushort[4];
+        private int ModifierSlots;
+
+        public StatModifiers(uint modifiers, uint values)
+        {
+            ModifierSlots = 4;
+
+            Modifiers[0] = BitConverter.GetBytes(modifiers)[0];
+            Modifiers[1] = BitConverter.GetBytes(modifiers)[1];
+            Modifiers[2] = BitConverter.GetBytes(modifiers)[2];
+            Modifiers[3] = BitConverter.GetBytes(modifiers)[3];
+
+            Values[0] = BitConverter.GetBytes(values)[0];
+            Values[1] = BitConverter.GetBytes(values)[1];
+            Values[2] = BitConverter.GetBytes(values)[2];
+            Values[3] = BitConverter.GetBytes(values)[3];
+        }
+
+        public StatModifiers(ushort modifiers, ushort values)
+        {
+            ModifierSlots = 2;
+
+            Modifiers[0] = BitConverter.GetBytes(modifiers)[0];
+            Modifiers[1] = BitConverter.GetBytes(modifiers)[1];
+
+            Values[0] = BitConverter.GetBytes(values)[0];
+            Values[1] = BitConverter.GetBytes(values)[1];
+        }
+
+        public void ApplyModifiers(EquipItem equippableItem)
+        {
+            for (int x = 0; x < ModifierSlots; x++)
+            {
+                switch (Modifiers[x])
+                {
+                    case 0:
+                        equippableItem.StrBonus = Values[x];
+                        break;
+                    case 1:
+                        equippableItem.VitBonus = Values[x];
+                        break;
+                    case 2:
+                        equippableItem.MagBonus = Values[x];
+                        break;
+                    case 3:
+                        equippableItem.SprBonus = Values[x];
+                        break;
+                    case 4:
+                        equippableItem.DexBonus = Values[x];
+                        break;
+                    case 5:
+                        equippableItem.LckBonus = Values[x];
+                        break;
+                }
+            }
+        }
+    }
+
+    public class MateriaItem : EquipItem
+    {
         public List<MateriaSlotKind> MateriaSlots { get; } = new();
         public int Growth { get; set; }
-
     }
 
-    public class Weapon : MateriaItem {
+    public class Weapon : MateriaItem
+    {
         public TargettingFlags TargettingFlags { get; set; }
         public byte DamageFormula { get; set; }
         public byte AttackStrength { get; set; }
@@ -65,20 +136,24 @@ namespace Ficedula.FF7 {
 
     }
 
-    public class WeaponCollection {
+    public class WeaponCollection
+    {
         private List<Weapon> _weapons = new();
 
         public IReadOnlyList<Weapon> Weapons => _weapons.AsReadOnly();
 
-        public WeaponCollection(Kernel kernel) {
+        public WeaponCollection(Kernel kernel)
+        {
             var descriptions = new KernelText(kernel.Sections.ElementAt(12));
             var names = new KernelText(kernel.Sections.ElementAt(20));
 
             var data = new MemoryStream(kernel.Sections.ElementAt(5));
 
             int index = 0;
-            while (data.Position < data.Length) {
-                Weapon weapon = new Weapon {
+            while (data.Position < data.Length)
+            {
+                Weapon weapon = new Weapon
+                {
                     Name = names.Get(index),
                     Description = descriptions.Get(index),
                     ID = index,
@@ -106,32 +181,12 @@ namespace Ficedula.FF7 {
                 weapon.Elements = (Elements)data.ReadU16();
                 data.ReadU16();
 
-                switch (data.ReadI32()) {
-                    case 0:
-                        weapon.StrBonus = data.ReadI32();
-                        break;
-                    case 1:
-                        weapon.VitBonus = data.ReadI32();
-                        break;
-                    case 2:
-                        weapon.MagBonus = data.ReadI32();
-                        break;
-                    case 3:
-                        weapon.SprBonus = data.ReadI32();
-                        break;
-                    case 4:
-                        weapon.DexBonus = data.ReadI32();
-                        break;
-                    case 5:
-                        weapon.LckBonus = data.ReadI32();
-                        break;
-                    default:
-                        data.ReadI32();
-                        break;
-                }
+                weapon.ApplyStatModifiers(new StatModifiers(data.ReadU32(), data.ReadU32()));
 
-                foreach (int _ in Enumerable.Range(0, 8)) {
-                    switch (data.ReadU8()) {
+                foreach (int _ in Enumerable.Range(0, 8))
+                {
+                    switch (data.ReadU8())
+                    {
                         case 1:
                         case 5:
                             weapon.MateriaSlots.Add(MateriaSlotKind.Single);
@@ -163,7 +218,7 @@ namespace Ficedula.FF7 {
                 _weapons.Add(weapon);
             }
         }
-  
+
 
     }
 }
