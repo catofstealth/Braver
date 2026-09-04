@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <PublishReadyToRun>false</PublishReadyToRun>
     <TieredCompilation>false</TieredCompilation>
     <UseWindowsForms>true</UseWindowsForms>
@@ -27,8 +27,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="LiteNetLib" Version="1.1.0" />
-    <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.1.303" />
-    <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
+    <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.5.1" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.5.1" />
+    <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.5.1" />
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="NAudio.Vorbis" Version="1.5.0" />
     <PackageReference Include="NVorbis" Version="0.10.5" />
@@ -95,10 +96,10 @@
     <PluginBinGltf Include="../PluginImplementations/Braver.GltfLoader/bin/$(Configuration)/$(TargetFramework)/*.*" />
   </ItemGroup>
   <Target Name="7thAfterBuild" AfterTargets="AfterBuild">
-    <Copy SourceFiles="@(PluginBin7HShim)" DestinationFolder="$(OutputPath)/plugins/7HCompatibility" ContinueOnError="false" />
+    <!--<Copy SourceFiles="@(PluginBin7HShim)" DestinationFolder="$(OutputPath)/plugins/7HCompatibility" ContinueOnError="false" />
     <Copy SourceFiles="@(PluginBinEquipMenuMod)" DestinationFolder="$(OutputPath)/plugins/EquipMenuMod" ContinueOnError="false" />
     <Copy SourceFiles="@(PluginBinFFNxCompat)" DestinationFolder="$(OutputPath)/plugins/FFNxCompatibility" ContinueOnError="false" />
     <Copy SourceFiles="@(PluginBinTolk)" DestinationFolder="$(OutputPath)/plugins/Tolk" ContinueOnError="false" />
-    <Copy SourceFiles="@(PluginBinGltf)" DestinationFolder="$(OutputPath)/plugins/Gltf" ContinueOnError="false" />
+    <Copy SourceFiles="@(PluginBinGltf)" DestinationFolder="$(OutputPath)/plugins/Gltf" ContinueOnError="false" />-->
   </Target>
 </Project>
