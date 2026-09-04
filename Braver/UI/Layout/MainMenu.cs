@@ -22,6 +22,14 @@ namespace Braver.UI.Layout {
 
         public Label lTimeHrs, lTimeC1, lTimeMins, lTimeC2, lTimeSecs;
 
+        public CharSelectType charSelectType = CharSelectType.Order;
+
+        public enum CharSelectType
+        {
+            Order,
+            Status
+        }
+
         protected override void OnInit() {
             base.OnInit();
             if (Focus == null) {
@@ -49,6 +57,7 @@ namespace Braver.UI.Layout {
 
         public void MenuSelected(Label selected) {
             if (selected == lOrder) {
+                charSelectType = CharSelectType.Order;
                 PushFocus(Chars, Char0);
             } else if (selected == lItem) {
                 _game.PushScreen(new LayoutScreen("ItemMenu"));
@@ -56,7 +65,13 @@ namespace Braver.UI.Layout {
                 _game.PushScreen(new LayoutScreen("EquipMenu", parm: 0));
             } else if (selected == lMateria) {
                 _game.PushScreen(new LayoutScreen("MateriaMenu", parm: 0));
-            } else if (selected == lSave) {
+            }
+            else if (selected == lStatus)
+            {
+                charSelectType = CharSelectType.Status;
+                PushFocus(Chars, Char0);
+            }
+            else if (selected == lSave) {
                 _game.PushScreen(new LayoutScreen("SaveMenu"));
             } else if (selected == lNetwork) {
                 _game.PushScreen(new LayoutScreen("NetworkConfig"));
@@ -65,26 +80,43 @@ namespace Braver.UI.Layout {
             }
         }
 
-        public void SelectChar(Group selected) {
+        public void SelectChar(Group selected)
+        {
             var groups = new List<Group> { Char0, Char1, Char2 };
-            if (FlashFocus == null) {
-                FlashFocus = selected;
-            } else if (FlashFocus == selected) {
-                Character chr = _game.SaveData.Party[groups.IndexOf(selected)];
-                chr.Flags ^= CharFlags.BackRow;
-                FlashFocus = null;
-                _screen.Reload();
-            } else {
-                int from = groups.IndexOf(FlashFocus as Group), to = groups.IndexOf(selected);
-                Character cFrom = _game.SaveData.Party[from],
-                    cTo = _game.SaveData.Party[to];
-                CharFlags fSlot = cFrom.Flags & CharFlags.ANY_PARTY_SLOT,
-                    tSlot = cTo.Flags & CharFlags.ANY_PARTY_SLOT;
-                cFrom.Flags = (cFrom.Flags & ~CharFlags.ANY_PARTY_SLOT) | tSlot;
-                cTo.Flags = (cTo.Flags & ~CharFlags.ANY_PARTY_SLOT) | fSlot;
-                FlashFocus = null;
-                _screen.Reload();
+
+            switch (charSelectType)
+            {
+                case CharSelectType.Order:
+
+                    if (FlashFocus == null)
+                    {
+                        FlashFocus = selected;
+                    }
+                    else if (FlashFocus == selected)
+                    {
+                        Character chr = _game.SaveData.Party[groups.IndexOf(selected)];
+                        chr.Flags ^= CharFlags.BackRow;
+                        FlashFocus = null;
+                        _screen.Reload();
+                    }
+                    else
+                    {
+                        int from = groups.IndexOf(FlashFocus as Group), to = groups.IndexOf(selected);
+                        Character cFrom = _game.SaveData.Party[from],
+                            cTo = _game.SaveData.Party[to];
+                        CharFlags fSlot = cFrom.Flags & CharFlags.ANY_PARTY_SLOT,
+                            tSlot = cTo.Flags & CharFlags.ANY_PARTY_SLOT;
+                        cFrom.Flags = (cFrom.Flags & ~CharFlags.ANY_PARTY_SLOT) | tSlot;
+                        cTo.Flags = (cTo.Flags & ~CharFlags.ANY_PARTY_SLOT) | fSlot;
+                        FlashFocus = null;
+                        _screen.Reload();
+                    }
+                    break;
+                case CharSelectType.Status:
+                    _game.PushScreen(new LayoutScreen("Status", parm: groups.IndexOf(selected)));
+                    break;
             }
+
         }
     }
 }

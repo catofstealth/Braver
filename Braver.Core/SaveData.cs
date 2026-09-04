@@ -4,6 +4,7 @@
 //  
 //  SPDX-License-Identifier: EPL-2.0
 
+using Braver.Battle;
 using Ficedula.FF7;
 using System;
 using System.Collections.Generic;
@@ -206,6 +207,26 @@ namespace Braver {
             return EquipAccessory < 0 ? null : game.Singleton<Accessories>()[EquipAccessory];
         }
 
+        public CombatStats GetBaseCombatStats(BGame game)
+        {
+            var weapon = GetWeapon(game);
+            var armour = GetArmour(game);
+
+            //check if accessory stats are added here
+            return new CombatStats {
+                Dex = Dexterity,
+                Lck = Luck,
+                Level = Level,
+                CriticalChance = weapon.CriticalChance,
+                Att = Strength + (weapon?.AttackStrength ?? 0),
+                Def = Vitality + (armour?.Defense ?? 0),
+                DfPC = Dexterity / 4 + (armour?.DefensePercent ?? 0),
+                MAt = Magic,
+                MDf = Spirit + (armour?.MDefense ?? 0),
+                MDPC = armour?.MDefensePercent ?? 0,
+            };
+        }
+
         public void Recalculate(BGame game) {
 
             Strength = BaseStrength + StrBonus;
@@ -240,8 +261,8 @@ namespace Braver {
                 Dexterity += materia.Materia.EquipEffect.Dexterity;
                 Luck += materia.Materia.EquipEffect.Luck;
 
-                MaxHP = MaxHP * (100 + materia.Materia.EquipEffect.MaxHP) / 100;
-                MaxMP = MaxMP * (100 + materia.Materia.EquipEffect.MaxMP) / 100;
+                MaxHP = MaxHP + ((int)((MaxHP/100m) * materia.Materia.EquipEffect.MaxHP));
+                MaxMP = MaxMP + ((int)((MaxMP/100m) * materia.Materia.EquipEffect.MaxMP));
 
                 if (materia.Materia is IndependentMateria0 im0) {
                     switch (im0.Kind) {

@@ -1,0 +1,53 @@
+﻿<Component xsi:type="Group" X="40" Y="0" W="200" H="640">
+    <Component xsi:type="Label" X="0" Y="0" Color="Aqua">Strength</Component>
+    <Component xsi:type="Label" X="0" Y="25" Color="Aqua">Dexterity  </Component>
+    <Component xsi:type="Label" X="0" Y="50" Color="Aqua">Vitality</Component>
+    <Component xsi:type="Label" X="0" Y="75" Color="Aqua">Magic</Component>
+    <Component xsi:type="Label" X="0" Y="100" Color="Aqua">Spirit</Component>
+    <Component xsi:type="Label" X="0" Y="125" Color="Aqua">Luck</Component>
+
+    <Component xsi:type="Label" X="0" Y="160" Color="Aqua">Attack</Component>
+    <Component xsi:type="Label" X="0" Y="185" Color="Aqua">Attack%</Component>
+    <Component xsi:type="Label" X="0" Y="210" Color="Aqua">Defense</Component>
+    <Component xsi:type="Label" X="0" Y="235" Color="Aqua">Defense%</Component>
+    <Component xsi:type="Label" X="0" Y="260" Color="Aqua">Magic Atk</Component>
+    <Component xsi:type="Label" X="0" Y="285" Color="Aqua">Magic Def</Component>
+    <Component xsi:type="Label" X="0" Y="310" Color="Aqua">Magic Def%</Component>
+</Component>
+
+<Component xsi:type="Group" X="240" Y="0" W="100" H="640">
+    <Component xsi:type="Label" X="0" Y="0">@Model.Character.Strength</Component>
+    <Component xsi:type="Label" X="0" Y="25">@Model.Character.Dexterity  </Component>
+    <Component xsi:type="Label" X="0" Y="50">@Model.Character.Vitality</Component>
+    <Component xsi:type="Label" X="0" Y="75">@Model.Character.Magic</Component>
+    <Component xsi:type="Label" X="0" Y="100">@Model.Character.Spirit</Component>
+    <Component xsi:type="Label" X="0" Y="125">@Model.Character.Luck</Component>
+
+    <Component xsi:type="Label" X="0" Y="160">@Model.CombatStats.Att</Component>
+    <Component xsi:type="Label" X="0" Y="185">@Model.Weapon.HitChance</Component>
+    <Component xsi:type="Label" X="0" Y="210">@Model.CombatStats.Def</Component>
+    <Component xsi:type="Label" X="0" Y="235">@Model.CombatStats.DfPC</Component>
+    <Component xsi:type="Label" X="0" Y="260">@Model.CombatStats.MAt</Component>
+    <Component xsi:type="Label" X="0" Y="285">@Model.CombatStats.MDf</Component>
+    <Component xsi:type="Label" X="0" Y="310">@Model.CombatStats.MDPC</Component>
+</Component>
+
+<Component xsi:type="Box" X="540" Y="0" W="640" H="200">
+    <Component xsi:type="Group" X="0" Y="0">
+        <Component xsi:type="Label" X="15" Y="15">Attack</Component>
+    </Component>
+</Component>
+
+<Component xsi:type="Group" X="540" Y="300" W="740" H="80">
+    <Component xsi:type="Label" X="0" Y="0">Wpn : @Model.Weapon.Name</Component>
+    <Component xsi:type="Label" X="0" Y="40"></Component>
+</Component>
+
+<Component xsi:type="Group" X="540" Y="380" W="740" H="80">
+    <Component xsi:type="Label" X="0" Y="0">Arm : @Model.Armour.Name</Component>
+    <Component xsi:type="Label" X="0" Y="40"></Component>
+</Component>
+
+<Component xsi:type="Group" X="540" Y="460" W="740" H="40">
+    <Component xsi:type="Label" X="0" Y="0">Acc : @Model.Accessory?.Name</Component>
+</Component>
