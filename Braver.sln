@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Braver", "Braver\Braver.csproj", "{7FCF50A6-C53B-4626-B20E-1FB3E1C09E8B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{81DD3ECD-8E53-465A-B8B1-05590EB9BB6D} = {81DD3ECD-8E53-465A-B8B1-05590EB9BB6D}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ficedula.FF7", "Ficedula.FF7\Ficedula.FF7.csproj", "{1F444A1B-B218-4BF5-AFD4-D6B006193C28}"
 EndProject
@@ -24,10 +27,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Braver.Plugins", "Braver.Plugins\Braver.Plugins.csproj", "{4C8A556C-F596-4F35-8E09-C79E5BEAFCEB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Braver.Tolk", "PluginImplementations\Braver.Tolk\Braver.Tolk.csproj", "{F6678D6E-E77F-468C-9C47-D5E841201587}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BraverLauncher", "BraverLauncher\BraverLauncher.csproj", "{504E8DFB-B109-4A22-88E8-55E728903E2A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Braver.7HShim", "PluginImplementations\Braver.7HShim\Braver.7HShim.csproj", "{4A5088CD-48E8-494B-A82C-8212A5D49073}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Braver.FFNxCompatibility", "PluginImplementations\Braver.FFNxCompatibility\Braver.FFNxCompatibility.csproj", "{0C0F23F0-D790-4102-BBD4-56774E4A089B}"
@@ -36,11 +35,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IrosArchive", "IrosArchive\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Braver.EquipMenuMod", "PluginImplementations\Braver.EquipMenuMod\Braver.EquipMenuMod.csproj", "{A6C5FE20-7D00-4FD9-AE27-65176B098FC7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossSlash", "CrossSlash\CrossSlash.csproj", "{9A97BA9B-CC8B-4A13-BBB7-5249A6234FD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Braver.GltfLoader", "PluginImplementations\Braver.GltfLoader\Braver.GltfLoader.csproj", "{B0DDF4E0-9983-4340-A522-F5B6C39040A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Braver.GltfLoader", "PluginImplementations\Braver.GltfLoader\Braver.GltfLoader.csproj", "{B0DDF4E0-9983-4340-A522-F5B6C39040A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ficedula.Core", "Ficedula.Core\Ficedula.Core.csproj", "{7490A90D-3BAF-4D33-B3F2-3158DD355B51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ficedula.Core", "Ficedula.Core\Ficedula.Core.csproj", "{7490A90D-3BAF-4D33-B3F2-3158DD355B51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Braver.Tolk", "PluginImplementations\Braver.Tolk\Braver.Tolk.csproj", "{25D18DAC-C270-681E-CADA-9510390E4A0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossSlash", "CrossSlash\CrossSlash.csproj", "{FFE27EC2-99CE-EBC9-D748-837FA0D51895}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BraverLauncher", "BraverLauncher\BraverLauncher.csproj", "{36B90FAC-8F47-2CD4-8E08-6E8E3C7489AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BraverSetup", "BraverSetup\BraverSetup.csproj", "{CD58EEFA-DB76-598A-FEF2-7CF7100477CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,14 +85,6 @@ Global
 		{4C8A556C-F596-4F35-8E09-C79E5BEAFCEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C8A556C-F596-4F35-8E09-C79E5BEAFCEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C8A556C-F596-4F35-8E09-C79E5BEAFCEB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F6678D6E-E77F-468C-9C47-D5E841201587}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6678D6E-E77F-468C-9C47-D5E841201587}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6678D6E-E77F-468C-9C47-D5E841201587}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6678D6E-E77F-468C-9C47-D5E841201587}.Release|Any CPU.Build.0 = Release|Any CPU
-		{504E8DFB-B109-4A22-88E8-55E728903E2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{504E8DFB-B109-4A22-88E8-55E728903E2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{504E8DFB-B109-4A22-88E8-55E728903E2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{504E8DFB-B109-4A22-88E8-55E728903E2A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4A5088CD-48E8-494B-A82C-8212A5D49073}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4A5088CD-48E8-494B-A82C-8212A5D49073}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A5088CD-48E8-494B-A82C-8212A5D49073}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -104,10 +101,6 @@ Global
 		{A6C5FE20-7D00-4FD9-AE27-65176B098FC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6C5FE20-7D00-4FD9-AE27-65176B098FC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6C5FE20-7D00-4FD9-AE27-65176B098FC7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9A97BA9B-CC8B-4A13-BBB7-5249A6234FD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9A97BA9B-CC8B-4A13-BBB7-5249A6234FD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9A97BA9B-CC8B-4A13-BBB7-5249A6234FD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9A97BA9B-CC8B-4A13-BBB7-5249A6234FD6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B0DDF4E0-9983-4340-A522-F5B6C39040A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B0DDF4E0-9983-4340-A522-F5B6C39040A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0DDF4E0-9983-4340-A522-F5B6C39040A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -116,6 +109,22 @@ Global
 		{7490A90D-3BAF-4D33-B3F2-3158DD355B51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7490A90D-3BAF-4D33-B3F2-3158DD355B51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7490A90D-3BAF-4D33-B3F2-3158DD355B51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25D18DAC-C270-681E-CADA-9510390E4A0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25D18DAC-C270-681E-CADA-9510390E4A0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25D18DAC-C270-681E-CADA-9510390E4A0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25D18DAC-C270-681E-CADA-9510390E4A0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFE27EC2-99CE-EBC9-D748-837FA0D51895}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFE27EC2-99CE-EBC9-D748-837FA0D51895}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFE27EC2-99CE-EBC9-D748-837FA0D51895}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFE27EC2-99CE-EBC9-D748-837FA0D51895}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36B90FAC-8F47-2CD4-8E08-6E8E3C7489AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36B90FAC-8F47-2CD4-8E08-6E8E3C7489AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36B90FAC-8F47-2CD4-8E08-6E8E3C7489AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36B90FAC-8F47-2CD4-8E08-6E8E3C7489AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD58EEFA-DB76-598A-FEF2-7CF7100477CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD58EEFA-DB76-598A-FEF2-7CF7100477CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD58EEFA-DB76-598A-FEF2-7CF7100477CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD58EEFA-DB76-598A-FEF2-7CF7100477CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
