@@ -1,0 +1,50 @@
+﻿<?xml version="1.0"?>
+<Layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <Root xsi:type="Box" X="0" Y="0" W="1280" H="720">
+
+        <Component xsi:type="Group" X="0" Y="0" W="1280" H="65">
+
+            <Component xsi:type="Group" X="0" Y="0" W="200" H="200" ID="gPortrait">
+                <Component xsi:type="Image" X="20" Y="10" W="190" H="190">@("portrait_" + @Model.Character.ID)</Component>
+            </Component>
+
+            <Component xsi:type="Group" X="200" Y="0" W="250" H="200" ID="gSummary">
+                <Component xsi:type="Label" X="0" Y="15">@Model.Character.Name</Component>
+                <Component xsi:type="Label" X="0" Y="40" Font="bats" Color="Aqua">LV</Component>
+                <Component xsi:type="Label" X="40" Y="40" Font="bats">@Model.Character.Level</Component>
+
+                <Component xsi:type="Label" X="0" Y="65" Font="bats" Color="Aqua">HP</Component>
+                <Component xsi:type="Label" X="120" Y="65" Font="bats" ID="lHP" Alignment="Right">@Model.Character.CurrentHP</Component>
+                <Component xsi:type="Label" X="150" Y="65" Font="bats" Alignment="Right" Color="Gray">/</Component>
+                <Component xsi:type="Label" X="230" Y="65" Font="bats" Alignment="Right">@Model.Character.MaxHP</Component>
+                <Component xsi:type="Gauge" X="0" Y="85" W="250" H="4" Style="HP" ID="gHPGauge" Current="@Model.Character.CurrentHP" Max="@Model.Character.MaxHP" />
+
+                <Component xsi:type="Label" X="0" Y="95" Font="bats" Color="Aqua">MP</Component>
+                <Component xsi:type="Label" X="120" Y="95" Font="bats" ID="lMP" Alignment="Right">@Model.Character.CurrentMP</Component>
+                <Component xsi:type="Label" X="150" Y="95" Font="bats" Alignment="Right" Color="Gray">/</Component>
+                <Component xsi:type="Label" X="230" Y="95" Font="bats" Alignment="Right">@Model.Character.MaxMP</Component>
+                <Component xsi:type="Gauge" X="0" Y="115" W="250" H="4" Style="MP" ID="gMPGauge" Current="@Model.Character.CurrentMP" Max="@Model.Character.MaxMP" />
+                            </Component>
+
+            <Component xsi:type="Group" X="450" Y="0" W="830" H="200" ID="gSummaryRight">
+                <Component xsi:type="Label" X="0" Y="10">EXP : @Model.Character.XP p</Component>
+                <Component xsi:type="Gauge" X="400" Y="40" W="250" H="24" Style="Limit" Current="@Model.Character.LevelProgress" Max="1" />
+
+                <Component xsi:type="Box" X="680" Y="0" W="150" H="50">
+                    <Component xsi:type="Label" X="40" Y="12">Status</Component>
+                </Component>
+
+                <Component xsi:type="Label" X="0" Y="65">Next level:</Component>
+                <Component xsi:type="Label" X="750" Y="65" W="250" Alignment="Right">@Model.Character.XPTNL p</Component>
+                <Component xsi:type="Label" X="0" Y="90">Limit level : @Model.Character.LimitLevel</Component>
+                <Component xsi:type="Gauge" X="500" Y="90" W="250" H="24" Style="Limit" Current="@Model.Character.LimitBar" Max="255" />
+                
+            </Component>
+
+        </Component>
+
+        <Component xsi:type="Group" X="0" Y="200" W="1280" H="520" ID="gContent">
+            @Include("_statusOverview", Model)
+        </Component>
+    </Root>
+</Layout>

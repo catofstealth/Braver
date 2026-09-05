@@ -10,10 +10,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ficedula.FF7 {
-    public enum Element {
-        None = 0,
-        Fire,
+namespace Ficedula.FF7
+{
+    public enum Element
+    {
+        Fire = 0,
         Ice,
         Lightning,
         Earth,
@@ -28,10 +29,12 @@ namespace Ficedula.FF7 {
         Punch,
         Shoot,
         Shout,
+        None
     }
 
     [Flags]
-    public enum Elements {
+    public enum Elements
+    {
         None = 0,
         Fire = 0x1,
         Ice = 0x2,
@@ -51,20 +54,22 @@ namespace Ficedula.FF7 {
         HiddenUltima = 0x8000
     }
 
-    public static class ElementUtil {
-        public static IEnumerable<Element> Split(this Elements elements) {
-            foreach (Element element in Enum.GetValues<Element>()) {
-                if (element != 0) {
-                    Elements test = (Elements)(1 << ((int)element - 1));
-                    if ((elements & test) != 0)
-                        yield return element;
-                }
+    public static class ElementUtil
+    {
+        public static IEnumerable<Element> Split(this Elements elements)
+        {
+            foreach (Element element in Enum.GetValues<Element>())
+            {
+                Elements test = (Elements)(1 << ((int)element));
+                if ((elements & test) != 0)
+                    yield return element;
             }
         }
     }
 
     [Flags]
-    public enum Statuses : uint {
+    public enum Statuses : uint
+    {
         None = 0,
         Death = 0x1,
         NearDeath = 0x2,

@@ -51,32 +51,7 @@ namespace Ficedula.FF7 {
                 };
                 index++;
 
-                ushort stats = data.ReadU16(), values = data.ReadU16();
-                foreach(int _ in Enumerable.Range(0, 2)) {
-                    switch (stats & 0xff) {
-                        case 0:
-                            accessory.StrBonus = values & 0xff;
-                            break;
-                        case 1:
-                            accessory.VitBonus = values & 0xff;
-                            break;
-                        case 2:
-                            accessory.MagBonus = values & 0xff;
-                            break;
-                        case 3:
-                            accessory.SprBonus = values & 0xff;
-                            break;
-                        case 4:
-                            accessory.DexBonus = values & 0xff;
-                            break;
-                        case 5:
-                            accessory.LckBonus = values & 0xff;
-                            break;
-                    }
-                    stats >>= 8;
-                    values >>= 8;
-                }
-
+                accessory.ApplyStatModifiers(new StatModifiers(data.ReadU16(), data.ReadU16()));
                 accessory.ElementEffect = (EquipElement)data.ReadU8();
                 accessory.AccessoryEffect = (AccessoryEffect)data.ReadU8();
                 accessory.Elements = (Elements)data.ReadU16();

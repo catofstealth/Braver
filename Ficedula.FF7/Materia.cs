@@ -13,9 +13,11 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ficedula.FF7 {
+namespace Ficedula.FF7
+{
 
-    public class MateriaEquipEffect {
+    public class MateriaEquipEffect
+    {
         public int Strength { get; set; }
         public int Vitality { get; set; }
         public int Magic { get; set; }
@@ -55,7 +57,8 @@ namespace Ficedula.FF7 {
         };
     }
 
-    public abstract class Materia {
+    public abstract class Materia
+    {
 
         private List<int> _apLevels;
 
@@ -69,7 +72,8 @@ namespace Ficedula.FF7 {
 
         public void Init(string name, string description, int id, MateriaEquipEffect equipEffect,
             IEnumerable<int> apLevels,
-            byte subType, IEnumerable<byte> attrs) {
+            byte subType, IEnumerable<byte> attrs)
+        {
             Name = name;
             ID = id;
             Description = description;
@@ -79,7 +83,8 @@ namespace Ficedula.FF7 {
         }
     }
 
-    public enum SupportMateriaKind {
+    public enum SupportMateriaKind
+    {
         All = 0x51,
         CommandCounter = 0x54,
         MagicCounter = 0x55,
@@ -95,19 +100,23 @@ namespace Ficedula.FF7 {
         QuadraMagic = 0x63,
     }
 
-    public class SupportMateria : Materia {
+    public class SupportMateria : Materia
+    {
         public SupportMateriaKind Kind { get; private set; }
 
-        protected override void DoInit(byte subType, IEnumerable<byte> attrs) {
+        protected override void DoInit(byte subType, IEnumerable<byte> attrs)
+        {
             Kind = (SupportMateriaKind)attrs.First();
         }
 
-        public override string ToString() {
+        public override string ToString()
+        {
             return $"Apply effect {Kind} to linked materia";
         }
     }
 
-    public enum IndependentMateriaKind {
+    public enum IndependentMateriaKind
+    {
         Underwater,
         HP_MP_Swap,
         LongRange,
@@ -136,17 +145,22 @@ namespace Ficedula.FF7 {
         MegaAll,
     }
 
-    public abstract class IndependentMateria : Materia {
+    public abstract class IndependentMateria : Materia
+    {
         public IndependentMateriaKind Kind { get; protected set; }
 
-        public override string ToString() {
+        public override string ToString()
+        {
             return $"Independent effect {Kind}";
         }
     }
 
-    public class IndependentMateria1 : IndependentMateria {
-        protected override void DoInit(byte subType, IEnumerable<byte> attrs) {
-            switch (attrs.First()) {
+    public class IndependentMateria1 : IndependentMateria
+    {
+        protected override void DoInit(byte subType, IEnumerable<byte> attrs)
+        {
+            switch (attrs.First())
+            {
                 case 0:
                     Kind = IndependentMateriaKind.GilPlus;
                     break;
@@ -164,19 +178,25 @@ namespace Ficedula.FF7 {
             }
         }
     }
-    public class IndependentMateria4 : IndependentMateria {
-        protected override void DoInit(byte subType, IEnumerable<byte> attrs) {
+    public class IndependentMateria4 : IndependentMateria
+    {
+        protected override void DoInit(byte subType, IEnumerable<byte> attrs)
+        {
             Kind = IndependentMateriaKind.MegaAll;
         }
     }
-    public class IndependentMateria0 : IndependentMateria {
+    public class IndependentMateria0 : IndependentMateria
+    {
 
         public List<int> Amounts { get; private set; }
 
-        protected override void DoInit(byte subType, IEnumerable<byte> attrs) {
-            switch (subType) {
+        protected override void DoInit(byte subType, IEnumerable<byte> attrs)
+        {
+            switch (subType)
+            {
                 case 0x0:
-                    switch (attrs.First()) {
+                    switch (attrs.First())
+                    {
                         case 0xC:
                             Kind = IndependentMateriaKind.Underwater;
                             break;
@@ -188,7 +208,8 @@ namespace Ficedula.FF7 {
                     }
                     break;
                 case 0x2:
-                    switch (attrs.First()) {
+                    switch (attrs.First())
+                    {
                         case 0:
                         case 1:
                         case 2:
@@ -227,29 +248,36 @@ namespace Ficedula.FF7 {
 
 
 
-    public abstract class CommandMateria : Materia {
+    public abstract class CommandMateria : Materia
+    {
         public int? RemoveCommand { get; protected set; }
         public List<int> Commands { get; protected set; }
         public override string ToString() => $"{Name} - grants commands {string.Join("/", Commands)} removes {RemoveCommand}";
     }
 
-    public class MasterCommandMateria : CommandMateria {
-        protected override void DoInit(byte subType, IEnumerable<byte> attrs) {
-            Commands = new List<int> { 
+    public class MasterCommandMateria : CommandMateria
+    {
+        protected override void DoInit(byte subType, IEnumerable<byte> attrs)
+        {
+            Commands = new List<int> {
                 5, 6, 7, 9, 10, 11, 12,
             };
         }
     }
 
-    public class ESkillCommandMateria : CommandMateria {
-        protected override void DoInit(byte subType, IEnumerable<byte> attrs) {
+    public class ESkillCommandMateria : CommandMateria
+    {
+        protected override void DoInit(byte subType, IEnumerable<byte> attrs)
+        {
             Commands = new List<int> { 13 };
         }
     }
 
-    public class AttackCommandMateria : CommandMateria {
+    public class AttackCommandMateria : CommandMateria
+    {
 
-        protected override void DoInit(byte subType, IEnumerable<byte> attrs) {
+        protected override void DoInit(byte subType, IEnumerable<byte> attrs)
+        {
             RemoveCommand = 1;
             Commands = attrs
                 .TakeWhile(b => b != 0xff)
@@ -258,9 +286,12 @@ namespace Ficedula.FF7 {
         }
     }
 
-    public class WCommandMateria : CommandMateria {
-        protected override void DoInit(byte subType, IEnumerable<byte> attrs) {
-            switch (attrs.First()) {
+    public class WCommandMateria : CommandMateria
+    {
+        protected override void DoInit(byte subType, IEnumerable<byte> attrs)
+        {
+            switch (attrs.First())
+            {
                 case 0x15:
                     RemoveCommand = 2;
                     Commands = new List<int> { 21 };
@@ -279,8 +310,10 @@ namespace Ficedula.FF7 {
         }
     }
 
-    public class StandardCommandMateria : CommandMateria {
-        protected override void DoInit(byte subType, IEnumerable<byte> attrs) {
+    public class StandardCommandMateria : CommandMateria
+    {
+        protected override void DoInit(byte subType, IEnumerable<byte> attrs)
+        {
             Commands = attrs
                 .TakeWhile(b => b != 0xff)
                 .Select(b => (int)b)
@@ -288,33 +321,40 @@ namespace Ficedula.FF7 {
         }
     }
 
-    public class MasterSummonMateria : SummonMateria {
-        protected override void DoInit(byte subType, IEnumerable<byte> attrs) {
+    public class MasterSummonMateria : SummonMateria
+    {
+        protected override void DoInit(byte subType, IEnumerable<byte> attrs)
+        {
             _summons = Enumerable.Range(56, 16).ToList();
         }
     }
 
-    public class SummonMateria : Materia {
+    public class SummonMateria : Materia
+    {
         protected List<int> _summons;
         public IReadOnlyList<int> Summons => _summons.AsReadOnly();
 
-        protected override void DoInit(byte subType, IEnumerable<byte> attrs) {
+        protected override void DoInit(byte subType, IEnumerable<byte> attrs)
+        {
             _summons = new List<int> { attrs.First() };
         }
 
         public override string ToString() => $"{Name} - grants summons {string.Join("/", Summons)}";
     }
 
-    public class MasterMagicMateria : MagicMateria {
+    public class MasterMagicMateria : MagicMateria
+    {
 
         public override IEnumerable<int> GrantedAtLevel(int level) => _magics.Select(m => m.Value);
 
-        protected override void DoInit(byte subType, IEnumerable<byte> attrs) {
+        protected override void DoInit(byte subType, IEnumerable<byte> attrs)
+        {
             _magics = Enumerable.Range(0, 53).Cast<int?>().ToList();
         }
     }
 
-    public class MagicMateria : Materia {
+    public class MagicMateria : Materia
+    {
         protected List<int?> _magics;
 
         public IReadOnlyList<int?> Magics => _magics.AsReadOnly();
@@ -324,7 +364,8 @@ namespace Ficedula.FF7 {
             .Where(m => m.HasValue)
             .Select(m => m.Value);
 
-        protected override void DoInit(byte subType, IEnumerable<byte> attrs) {
+        protected override void DoInit(byte subType, IEnumerable<byte> attrs)
+        {
             _magics = attrs
                 .Reverse()
                 .SkipWhile(b => b == 0xff)
@@ -336,20 +377,23 @@ namespace Ficedula.FF7 {
         public override string ToString() => $"{Name} - grants magic {string.Join("/", Magics)}";
     }
 
-    public class MateriaCollection {
+    public class MateriaCollection
+    {
 
         private Dictionary<int, Materia> _materia = new();
 
         public IReadOnlyDictionary<int, Materia> Item => _materia;
 
-        public MateriaCollection(Kernel kernel) {
+        public MateriaCollection(Kernel kernel)
+        {
             var descriptions = new KernelText(kernel.Sections.ElementAt(15));
             var names = new KernelText(kernel.Sections.ElementAt(23));
 
             var data = new MemoryStream(kernel.Sections.ElementAt(8));
 
             int index = 0;
-            while(data.Position < data.Length) {
+            while (data.Position < data.Length)
+            {
                 ushort[] apLimits = Enumerable.Range(0, 4)
                     .Select(_ => data.ReadU16())
                     .ToArray();
@@ -361,7 +405,8 @@ namespace Ficedula.FF7 {
                     .Select(_ => data.ReadU8())
                     .ToArray();
 
-                if (_byType.TryGetValue(materiaType & 0xf, out var create)) {
+                if (_byType.TryGetValue(materiaType & 0xf, out var create))
+                {
                     var materia = create();
                     materia.Init(
                         names.Get(index), descriptions.Get(index), index,
@@ -378,11 +423,13 @@ namespace Ficedula.FF7 {
 
         private static Dictionary<int, Func<Materia>> _byType = new();
 
-        private static void Register<T>(byte type) where T : Materia, new() {
+        private static void Register<T>(byte type) where T : Materia, new()
+        {
             _byType[type] = () => new T();
         }
 
-        static MateriaCollection() {
+        static MateriaCollection()
+        {
             Register<IndependentMateria0>(0x0);
             Register<IndependentMateria1>(0x1);
             Register<AttackCommandMateria>(0x2);
