@@ -622,3 +622,4 @@ cmake-build*/
 # vcpkg
 !make.exe
 vcpkg_installed/
+data/log.txt

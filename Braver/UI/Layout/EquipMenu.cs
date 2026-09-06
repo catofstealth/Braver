@@ -54,11 +54,11 @@ namespace Braver.UI.Layout {
                 g.SaveData.Inventory
                 .Where(inv => (inv.ItemID >= InventoryItem.ITEM_ID_CUTOFF) && (inv.ItemID < InventoryItem.WEAPON_ID_CUTOFF))
                 .Select(inv => inv.ItemID)
-                .Concat(new[] { Character.EquipWeapon })
+                .Concat(new[] { Character.EquipWeapon + InventoryItem.ITEM_ID_CUTOFF })
                 .Where(id => id >= 0)
                 .Distinct()
                 .OrderBy(i => i)
-                .Select(i => weapons.Weapons[i])
+                .Select(i => weapons.Weapons[i - InventoryItem.ITEM_ID_CUTOFF])
             );
 
             AvailableArmour.Clear();
@@ -66,11 +66,11 @@ namespace Braver.UI.Layout {
                 g.SaveData.Inventory
                 .Where(inv => (inv.ItemID >= InventoryItem.WEAPON_ID_CUTOFF) && (inv.ItemID < InventoryItem.ARMOUR_ID_CUTOFF))
                 .Select(inv => inv.ItemID)
-                .Concat(new[] { Character.EquipArmour })
+                .Concat(new[] { Character.EquipArmour + InventoryItem.WEAPON_ID_CUTOFF })
                 .Where(id => id >= 0)
                 .Distinct()
                 .OrderBy(i => i)
-                .Select(i => armours.Armour[i])
+                .Select(i => armours.Armour[i - InventoryItem.WEAPON_ID_CUTOFF])
             );
 
             AvailableAccessories.Clear();
@@ -78,11 +78,11 @@ namespace Braver.UI.Layout {
                 g.SaveData.Inventory
                 .Where(inv => (inv.ItemID >= InventoryItem.ARMOUR_ID_CUTOFF) && (inv.ItemID < InventoryItem.ACCESSORY_ID_CUTOFF))
                 .Select(inv => inv.ItemID)
-                .Concat(new[] { Character.EquipAccessory })
+                .Concat(Character.EquipAccessory >= 0 ? new [] { Character.EquipAccessory + InventoryItem.ARMOUR_ID_CUTOFF } : [])
                 .Where(id => id >= 0)
                 .Distinct()
                 .OrderBy(i => i)
-                .Select(i => accessories.Accessories[i])
+                .Select(i => accessories.Accessories[i - InventoryItem.ARMOUR_ID_CUTOFF])
             );
         }
 

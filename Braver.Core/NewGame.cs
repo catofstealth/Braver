@@ -39,8 +39,8 @@ namespace Braver {
             data.Position = 0x4fc - 0x54;
             foreach(int _ in Enumerable.Range(0, 320)) {
                 ushort value = data.ReadU16();
-                int index = value & 0x1ff, qty = value >> 9;
-                if (qty > 0)
+                int index = value & 0x1ff, qty = (value >> 9) & 0x3F; //Need to ignore MSB as this is always 1 giving the wrong item id
+                if (qty > 0 && value < ushort.MaxValue)
                     game.SaveData.Inventory.Add(new InventoryItem {
                         ItemID = index,
                         Quantity = qty,
