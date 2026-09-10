@@ -47,6 +47,19 @@ namespace Ficedula.FF7
         public byte MDefensePercent { get; set; }
         public Statuses StatusDefense { get; set; }
 
+        public IEnumerable<Element> GetElements()
+        {
+            foreach (Enum value in Enum.GetValues(Elements.GetType()))
+                if (Elements.HasFlag(value))
+                    yield return Enum.Parse<Element>(value.ToString());
+        }
+
+        public IEnumerable<Status> GetStatusDefenses()
+        {
+            foreach (Enum value in Enum.GetValues(StatusDefense.GetType()))
+                if (StatusDefense.HasFlag(value))
+                    yield return Enum.Parse<Status>(value.ToString());
+        }
     }
 
     public class ArmourCollection
@@ -98,8 +111,8 @@ namespace Ficedula.FF7
                             break;
                     }
                 }
-                armour.Growth = data.ReadU8();
-                if (armour.Growth > 3) armour.Growth = 1;
+                armour.MateriaGrowthRate = data.ReadU8();
+                if (armour.MateriaGrowthRate > 3) armour.MateriaGrowthRate = 1;
                 armour.EquippableOn = data.ReadU16();
                 armour.Elements = (Elements)data.ReadU16();
                 data.ReadU16();

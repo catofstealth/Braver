@@ -67,6 +67,43 @@ namespace Ficedula.FF7
         }
     }
 
+    public enum Status
+    {
+        None,
+        Death,
+        NearDeath,
+        Sleep,
+        Poison,
+        Sadness,
+        Fury,
+        Confusion,
+        Silence,
+        Haste,
+        Slow,
+        Stop,
+        Frog,
+        Small,
+        SlowNumb,
+        Petrify,
+        Regen,
+        Barrier,
+        MBarrier,
+        Reflect,
+        Dual,
+        Shield,
+        DeathSentence,
+        Manipulate,
+        Berserk,
+        Peerless,
+        Paralysed,
+        Darkness,
+        Seizure,
+        DeathForce,
+        Resist,
+        LuckyGirl,
+        Imprisoned
+    }
+
     [Flags]
     public enum Statuses : uint
     {
@@ -90,7 +127,7 @@ namespace Ficedula.FF7
         Barrier = 0x10000,
         MBarrier = 0x20000,
         Reflect = 0x40000,
-        Dual = 0x80000,
+        Dual = 0x80000, 
         Shield = 0x100000,
         DeathSentence = 0x200000,
         Manipulate = 0x400000,

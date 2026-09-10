@@ -67,10 +67,13 @@ namespace Ficedula.FF7
         public int ID { get; private set; }
         public string Description { get; private set; }
         public MateriaEquipEffect EquipEffect { get; private set; }
+        public Statuses Statuses { get; set; }
+        public Element Element { get; set; }
 
         protected abstract void DoInit(byte subType, IEnumerable<byte> attrs);
 
         public void Init(string name, string description, int id, MateriaEquipEffect equipEffect,
+            Statuses statuses, Element elements,
             IEnumerable<int> apLevels,
             byte subType, IEnumerable<byte> attrs)
         {
@@ -78,8 +81,17 @@ namespace Ficedula.FF7
             ID = id;
             Description = description;
             EquipEffect = equipEffect;
+            Statuses = statuses;
+            Element = elements;
             _apLevels = apLevels.ToList();
             DoInit(subType, attrs);
+        }
+
+        public IEnumerable<Status> GetStatusDefenses()
+        {
+            foreach (Enum value in Enum.GetValues(Statuses.GetType()))
+                if (Statuses.HasFlag(value))
+                    yield return Enum.Parse<Status>(value.ToString());
         }
     }
 
@@ -399,7 +411,13 @@ namespace Ficedula.FF7
                     .ToArray();
 
                 byte equipEffect = data.ReadU8();
+                
+                //only 24 bits are used fro status so top 8 cannot be used in materia status
+                //top 8 bits are elemental informtion this is limited to the first 8 elements
                 uint statusElement = data.ReadU32();
+                Statuses statuses = (Statuses)(statusElement & 0x00ffffff);
+                Element element = (Element)(statusElement >> 24);
+
                 byte materiaType = data.ReadU8();
                 byte[] attrs = Enumerable.Range(0, 6)
                     .Select(_ => data.ReadU8())
@@ -411,7 +429,8 @@ namespace Ficedula.FF7
                     materia.Init(
                         names.Get(index), descriptions.Get(index), index,
                         MateriaEquipEffect.ByIndex(equipEffect),
-                        apLimits.TakeWhile(u16 => u16 != 0xffff).Select(u16 => (int)u16),
+                        statuses, element,
+                        apLimits.TakeWhile(u16 => u16 != 0xffff).Select(u16 => (int)u16 * 100),
                         (byte)(materiaType >> 4), attrs
                     );
                     _materia[index] = materia;

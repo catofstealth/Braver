@@ -46,5 +46,13 @@
         <Component xsi:type="Group" X="0" Y="200" W="1280" H="520" ID="gContent">
             @Include("_statusOverview", Model)
         </Component>
+		
+		<Component xsi:type="Group" X="0" Y="200" W="1280" H="520" ID="gElementContent" Visible="false">
+            @Include("_statusElement", Model)
+        </Component>
+		
+		<Component xsi:type="Group" X="0" Y="200" W="1280" H="520" ID="gEffectContent" Visible="false">
+            @Include("_statusEffect", Model)
+        </Component>
     </Root>
 </Layout>

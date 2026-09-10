@@ -33,7 +33,7 @@
 				<Component xsi:type="Group" BackgroundAlpha="0.2" X="700" Y="130" W="300" H="30" InputPassthrough="true">
 					@foreach(int slot in Enumerable.Range(0, Model.Armour?.MateriaSlots?.Count ?? 0)) {
 						<Component xsi:type="Image" X="@(5 + 30 * slot)" Y="3" ID="A@(slot)" Click="EClick" Focussed="EFocussed">materia_slot</Component>
-						@if (((slot % 2) == 0) && (Model.Weapon.MateriaSlots[slot] == MateriaSlotKind.Linked)) {
+						@if (((slot % 2) == 0) && (Model.Armour.MateriaSlots[slot] == MateriaSlotKind.Linked)) {
 							<Component xsi:type="Image" X="@(25 + 30 * slot)" Y="5">materia_slot_link</Component>
 						}
 						
@@ -55,11 +55,12 @@
 				@if (Model.CurrentMateria != null) {
 					<Component xsi:type="Image" X="20" Y="50">materia_@Model.MateriaColor(Model.CurrentMateria.Materia)</Component>
 					<Component xsi:type="Label" Y="50" X="50">@Model.CurrentMateria.Materia.Name</Component>
+					<Component xsi:type="Label" X="50" Y="103" Color="Yellow">@Model.CurrentMateria.Element</Component>
 				
 					<Component xsi:type="Label" X="680" Y="103" Font="bats" Alignment="Right">@Model.CurrentMateria.AP</Component>
 					<Component xsi:type="Label" X="680" Y="153" Font="bats" Alignment="Right">@Model.CurrentMateria.ToNextLevel</Component>
 
-					@foreach(int L in Enumerable.Range(1, Model.CurrentMateria.Materia.APLevels.Count)) {
+					@foreach(int L in Enumerable.Range(1, Model.CurrentMateria.Materia.APLevels.Count + 1)) {
 						if (L > Model.CurrentMateria.Level) {
 							<Component xsi:type="Image" X="@(500 + 32 * L)" Y="50">materia_star_empty_@Model.MateriaColor(Model.CurrentMateria.Materia)</Component>
 						} else {

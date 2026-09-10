@@ -1,0 +1,93 @@
+﻿<Component xsi:type="Group" X="40" Y="0" W="200" H="640">
+    <Component xsi:type="Label" X="0" Y="0" Color="Aqua">Effect</Component>
+</Component>
+
+
+<Component xsi:type="Group" X="0" Y="40" W="1280" H="600">
+
+    <Component xsi:type="Group" X="0" Y="0">
+	
+		<Component xsi:type="Group" X="80" Y="0">
+			<Component xsi:type="Label" X="0" Y="0" Color="Aqua">Attack</Component>
+		</Component>
+	
+		<Component xsi:type="Group" X="200" Y="0" ID="gAttackEffect">
+		
+			<Component xsi:type="Label" X="0" Y="0" Color="Gray" ID="lDeath">Death</Component>
+			<Component xsi:type="Label" X="125" Y="0" Color="Gray" ID="lNearDeath">Near-Death</Component>
+			<Component xsi:type="Label" X="250" Y="0" Color="Gray" ID="lSleep">Sleep</Component>
+			<Component xsi:type="Label" X="375" Y="0" Color="Gray" ID="lPoison">Poison</Component>
+			<Component xsi:type="Label" X="500" Y="0" Color="Gray" ID="lSadness">Sadness</Component>
+			<Component xsi:type="Label" X="625" Y="0" Color="Gray" ID="lFury">Fury</Component>
+			
+			<Component xsi:type="Label" X="0" Y="40" Color="Gray" ID="lConfusion">Confusion</Component>
+			<Component xsi:type="Label" X="125" Y="40" Color="Gray" ID="lSilence">Silence</Component>
+			<Component xsi:type="Label" X="250" Y="40" Color="Gray" ID="lHaste">Haste</Component>
+			<Component xsi:type="Label" X="375" Y="40" Color="Gray" ID="lSlow">Slow</Component>
+			<Component xsi:type="Label" X="500" Y="40" Color="Gray" ID="lStop">Stop</Component>
+			<Component xsi:type="Label" X="625" Y="40" Color="Gray" ID="lFrog">Frog</Component>
+			<Component xsi:type="Label" X="750" Y="40" Color="Gray" ID="lSmall">Small</Component>
+			
+			<Component xsi:type="Label" X="0" Y="80" Color="Gray" ID="lSlowNumb">Slow-Numb</Component>
+			<Component xsi:type="Label" X="125" Y="80" Color="Gray" ID="lPetrify">Petrify</Component>
+			<Component xsi:type="Label" X="250" Y="80" Color="Gray" ID="lRegen">Regen</Component>
+			<Component xsi:type="Label" X="375" Y="80" Color="Gray" ID="lBarrier">Barrier</Component>
+			<Component xsi:type="Label" X="500" Y="80" Color="Gray" ID="lMBarrier">MBarrier</Component>
+			
+			<Component xsi:type="Label" X="0" Y="120" Color="Gray" ID="lReflect">Reflect</Component>
+			<Component xsi:type="Label" X="125" Y="120" Color="Gray" ID="lShield">Shield</Component>
+			<Component xsi:type="Label" X="250" Y="120" Color="Gray" ID="lDeathSentence">Death-Sentence</Component>
+			<Component xsi:type="Label" X="500" Y="120" Color="Gray" ID="lManipulate">Manipulate</Component>
+			
+			<Component xsi:type="Label" X="0" Y="160" Color="Gray" ID="lBerserk">Berserk</Component>
+			<Component xsi:type="Label" X="125" Y="160" Color="Gray" ID="lPeerless">Peerless</Component>
+			<Component xsi:type="Label" X="250" Y="160" Color="Gray" ID="lParalysed">Paralysed</Component>
+			<Component xsi:type="Label" X="375" Y="160" Color="Gray" ID="lDarkness">Darkness</Component>
+			
+		</Component>
+		
+	</Component>
+	
+	<Component xsi:type="Group" X="0" Y="240">
+	
+		<Component xsi:type="Group" X="80" Y="0">
+			<Component xsi:type="Label" X="0" Y="0" Color="Aqua">Defend</Component>
+		</Component>
+	
+		<Component xsi:type="Group" X="200" Y="0" ID="gDefendEffect">
+		
+			<Component xsi:type="Label" X="0" Y="0" Color="Gray" ID="lDeath">Death</Component>
+			<Component xsi:type="Label" X="125" Y="0" Color="Gray" ID="lNearDeath">Near-Death</Component>
+			<Component xsi:type="Label" X="250" Y="0" Color="Gray" ID="lSleep">Sleep</Component>
+			<Component xsi:type="Label" X="375" Y="0" Color="Gray" ID="lPoison">Poison</Component>
+			<Component xsi:type="Label" X="500" Y="0" Color="Gray" ID="lSadness">Sadness</Component>
+			<Component xsi:type="Label" X="625" Y="0" Color="Gray" ID="lFury">Fury</Component>
+			
+			<Component xsi:type="Label" X="0" Y="40" Color="Gray" ID="lConfusion">Confusion</Component>
+			<Component xsi:type="Label" X="125" Y="40" Color="Gray" ID="lSilence">Silence</Component>
+			<Component xsi:type="Label" X="250" Y="40" Color="Gray" ID="lHaste">Haste</Component>
+			<Component xsi:type="Label" X="375" Y="40" Color="Gray" ID="lSlow">Slow</Component>
+			<Component xsi:type="Label" X="500" Y="40" Color="Gray" ID="lStop">Stop</Component>
+			<Component xsi:type="Label" X="625" Y="40" Color="Gray" ID="lFrog">Frog</Component>
+			<Component xsi:type="Label" X="750" Y="40" Color="Gray" ID="lSmall">Small</Component>
+			
+			<Component xsi:type="Label" X="0" Y="80" Color="Gray" ID="lSlowNumb">Slow-Numb</Component>
+			<Component xsi:type="Label" X="125" Y="80" Color="Gray" ID="lPetrify">Petrify</Component>
+			<Component xsi:type="Label" X="250" Y="80" Color="Gray" ID="lRegen">Regen</Component>
+			<Component xsi:type="Label" X="375" Y="80" Color="Gray" ID="lBarrier">Barrier</Component>
+			<Component xsi:type="Label" X="500" Y="80" Color="Gray" ID="lMBarrier">MBarrier</Component>
+			
+			<Component xsi:type="Label" X="0" Y="120" Color="Gray" ID="lReflect">Reflect</Component>
+			<Component xsi:type="Label" X="125" Y="120" Color="Gray" ID="lShield">Shield</Component>
+			<Component xsi:type="Label" X="250" Y="120" Color="Gray" ID="lDeathSentence">Death-Sentence</Component>
+			<Component xsi:type="Label" X="500" Y="120" Color="Gray" ID="lManipulate">Manipulate</Component>
+			
+			<Component xsi:type="Label" X="0" Y="160" Color="Gray" ID="lBerserk">Berserk</Component>
+			<Component xsi:type="Label" X="125" Y="160" Color="Gray" ID="lPeerless">Peerless</Component>
+			<Component xsi:type="Label" X="250" Y="160" Color="Gray" ID="lParalysed">Paralysed</Component>
+			<Component xsi:type="Label" X="375" Y="160" Color="Gray" ID="lDarkness">Darkness</Component>
+			
+		</Component>
+		
+	</Component>
+</Component>

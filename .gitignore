@@ -623,3 +623,4 @@ cmake-build*/
 !make.exe
 vcpkg_installed/
 data/log.txt
+/Third Party Tools
