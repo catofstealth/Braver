@@ -7,6 +7,8 @@
 using Ficedula;
 using Braver.Plugins;
 using Braver.Plugins.UI;
+using Ficedula;
+using Ficedula.FF7;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RazorEngineCore;
@@ -21,6 +23,7 @@ using System.Xml.Serialization;
 namespace Braver.UI.Layout {
     [XmlInclude(typeof(Box)), XmlInclude(typeof(Label)), XmlInclude(typeof(Gauge))]
     [XmlInclude(typeof(Group)), XmlInclude(typeof(Image)), XmlInclude(typeof(List))]
+    [XmlInclude(typeof(MateriaDisplay))]
     public abstract class Component : IComponent {
 
         private static Dictionary<string, Color> _colors = new Dictionary<string, Color>(StringComparer.InvariantCultureIgnoreCase);
@@ -260,6 +263,50 @@ namespace Braver.UI.Layout {
             base.Draw(model, ui, offsetX, offsetY, getZ);
         }
 
+    }
+
+    public class MateriaDisplay : Container
+    {
+        [XmlAttribute("Background")]
+        public string BackgroundString { get; set; } = "Black";
+
+        [XmlAttribute]
+        private Color? _background;
+        [XmlIgnore]
+        public Color Background
+        {
+            get => GetColor(BackgroundString, ref _background);
+            set => _background = value;
+        }
+
+        [XmlAttribute]
+        public float BackgroundAlpha { get; set; }
+
+        public List<MateriaSlotKind> MateriaSlots { get; set; } = new List<MateriaSlotKind>();
+
+        public bool ZeroGrowthRate { get; set; }
+
+        public override void Draw(LayoutModel model, UIBatch ui, int offsetX, int offsetY, Func<float> getZ)
+        {
+            int BorderThickness = 2;
+            ui.DrawImage("white", X + offsetX, Y + offsetY, getZ(), new Point(W, BorderThickness), color: Color.Black.WithAlpha((byte)(0.3 * 255)));
+            ui.DrawImage("white", X + offsetX, Y + offsetY, getZ(), new Point(BorderThickness, H), color: Color.Black.WithAlpha((byte)(0.3 * 255)));
+            ui.DrawImage("white", X + offsetX, Y + offsetY + H, getZ(), new Point(W, BorderThickness), color: Color.Gray.WithAlpha((byte)(0.9 * 255)));
+            ui.DrawImage("white", X + offsetX + W - BorderThickness, Y + offsetY + BorderThickness, getZ(), new Point(BorderThickness, H), color: Color.Gray.WithAlpha((byte)(0.9 * 255)));
+
+            if (BackgroundAlpha > 0)
+                ui.DrawImage("white", X + offsetX, Y + offsetY, getZ(), new Point(W, H), color: Background.WithAlpha((byte)(BackgroundAlpha * 255)));
+            
+            foreach (int slot in Enumerable.Range(0, MateriaSlots.Count()))
+            {
+                ui.DrawImage(ZeroGrowthRate ? "materia_slot_nogrowth" : "materia_slot", offsetX + X + (5 + 28 * slot), offsetY + Y + 4, getZ(), Alignment.Left, 1f);
+                if (((slot % 2) == 0) && (MateriaSlots.ElementAt(slot) == MateriaSlotKind.Linked))
+                {
+                    ui.DrawImage("materia_slot_link", offsetX + X + (24 + 28 * slot), offsetY + Y + 6, 1, Alignment.Left, 1f);
+                }
+            }
+            base.Draw(model, ui, offsetX, offsetY, getZ);
+        }
     }
 
     public class Label : Component {
@@ -571,6 +618,12 @@ namespace Braver.UI.Layout {
             _ui = new UIBatch(graphics, g);
             if (!_isEmbedded) g.Net.Send(new Net.ScreenReadyMessage());
             Plugins.Call(ui => ui.Init(this));
+        }
+
+        public override void Reactivated()
+        {
+            base.Reactivated();
+            Reload();
         }
 
         public void Reload(bool forceReload = false) {

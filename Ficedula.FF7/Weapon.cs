@@ -115,7 +115,7 @@ namespace Ficedula.FF7
     public class MateriaItem : EquipItem
     {
         public List<MateriaSlotKind> MateriaSlots { get; } = new();
-        public int Growth { get; set; }
+        public int MateriaGrowthRate { get; set; }
     }
 
     public class Weapon : MateriaItem
@@ -134,6 +134,21 @@ namespace Ficedula.FF7
         public int MissSoundEffect { get; set; }
         public byte ImpactEffectID { get; set; }
 
+        public int CameraMovementId { get; set; }
+
+        public IEnumerable<Element> GetElements()
+        {
+            foreach (Enum value in Enum.GetValues(Elements.GetType()))
+                if (Elements.HasFlag(value))
+                    yield return Enum.Parse<Element>(value.ToString());
+        }
+
+        public IEnumerable<Status> GetStatusDefenses()
+        {
+            foreach (Enum value in Enum.GetValues(Statuses.GetType()))
+                if (Statuses.HasFlag(value))
+                    yield return Enum.Parse<Status>(value.ToString());
+        }
     }
 
     public class WeaponCollection
@@ -166,17 +181,17 @@ namespace Ficedula.FF7
                 weapon.AttackStrength = data.ReadU8();
                 byte status = data.ReadU8();
                 weapon.Statuses = status == 0xff ? Statuses.None : (Statuses)(1 << status);
-                weapon.Growth = data.ReadU8();
-                if (weapon.Growth > 3) weapon.Growth = 1;
+                weapon.MateriaGrowthRate = data.ReadU8();
+                if (weapon.MateriaGrowthRate > 3) weapon.MateriaGrowthRate = 1;
                 weapon.CriticalChance = data.ReadU8();
                 weapon.HitChance = data.ReadU8();
                 byte model = data.ReadU8();
                 weapon.AnimationModifier = (byte)(model >> 4);
                 weapon.AttackModel = (byte)(model & 0xf);
-                data.ReadU8();
+                data.ReadU8(); //alignment, unsed
                 byte hiSound = data.ReadU8();
                 hiSound = 0;
-                data.ReadU16();
+                weapon.CameraMovementId = data.ReadU16();
                 weapon.EquippableOn = data.ReadU16();
                 weapon.Elements = (Elements)data.ReadU16();
                 data.ReadU16();

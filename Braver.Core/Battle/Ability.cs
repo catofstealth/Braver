@@ -56,7 +56,7 @@ namespace Braver.Battle {
             if (e == Element.None)
                 return false;
            
-            Elements mask = (Elements)(1 << ((int)e - 1));
+            Elements mask = (Elements)(1 << ((int)e));
             return (Elements & mask) != 0;
         }
     }

@@ -14,7 +14,7 @@ namespace Braver.UI.Layout {
     public class Debug : LayoutModel {
 
         public Label lNoFieldScripts, lNoRandomBattles, lSkipBattleMenu, lAutoSaveOnFieldEntry,
-            lSeparateSaveFiles;
+            lSeparateSaveFiles, lAlwaysRun, lDisplayLegacyStats; 
         public Box Root;
 
         protected override void OnInit() {
@@ -34,6 +34,9 @@ namespace Braver.UI.Layout {
             DoLabel(lNoRandomBattles, Game.GameOptions.NoRandomBattles);
             DoLabel(lSkipBattleMenu, Game.GameOptions.SkipBattleMenu);
             DoLabel(lSeparateSaveFiles, Game.GameOptions.SeparateSaveFiles);
+            DoLabel(lAlwaysRun, Game.GameOptions.AlwaysRun);
+            DoLabel(lDisplayLegacyStats, Game.GameOptions.DisplayLegacyStats);
+            
 
             lAutoSaveOnFieldEntry.Text = $"Auto Save on Field Entry: {Game.GameOptions.AutoSaveOnFieldEntry}";
         }
@@ -52,7 +55,10 @@ namespace Braver.UI.Layout {
                 Game.GameOptions.AutoSaveOnFieldEntry = (FieldAutoSaveType)(((int)Game.GameOptions.AutoSaveOnFieldEntry + 1) % (maxValue + 1));
             } else if (L == lSeparateSaveFiles)
                 Game.GameOptions.SeparateSaveFiles = !Game.GameOptions.SeparateSaveFiles;
-
+            else if (L == lAlwaysRun)
+                Game.GameOptions.AlwaysRun = !Game.GameOptions.AlwaysRun;
+            else if (L == lDisplayLegacyStats)
+                Game.GameOptions.DisplayLegacyStats = !Game.GameOptions.DisplayLegacyStats;
             Update();
             ChangeFocus(Focus); //to re-announce new state
         }

@@ -101,8 +101,10 @@ namespace Braver {
         public bool SkipBattleMenu { get; set; }
         public FieldAutoSaveType AutoSaveOnFieldEntry { get; set; }
         public bool SeparateSaveFiles { get; set; }
+        public bool AlwaysRun { get; set; }
         public float MusicVolume { get; set; } = 1f;
         public int BattleSpeed { get; set; } = 128;
+        public bool DisplayLegacyStats { get; set; } = true;
 
         public GameOptions(Dictionary<string, string> settings) {
             Serialisation.SetProperties(this, settings, "Options.");

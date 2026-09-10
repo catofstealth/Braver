@@ -26,8 +26,12 @@ namespace Braver.UI.Layout {
 
         public enum CharSelectType
         {
+            Magic,
+            Materia,
+            Equip,
+            Status,
             Order,
-            Status
+            Limit
         }
 
         protected override void OnInit() {
@@ -61,14 +65,30 @@ namespace Braver.UI.Layout {
                 PushFocus(Chars, Char0);
             } else if (selected == lItem) {
                 _game.PushScreen(new LayoutScreen("ItemMenu"));
-            } else if (selected == lEquip) {
-                _game.PushScreen(new LayoutScreen("EquipMenu", parm: 0));
-            } else if (selected == lMateria) {
-                _game.PushScreen(new LayoutScreen("MateriaMenu", parm: 0));
             }
+            else if (selected == lMagic)
+            {
+                charSelectType = CharSelectType.Magic;
+                PushFocus(Chars, Char0);
+            }
+            else if (selected == lMateria)
+            {
+                charSelectType = CharSelectType.Materia;
+                PushFocus(Chars, Char0);
+            }
+            else if (selected == lEquip)
+            {
+                charSelectType = CharSelectType.Equip;
+                PushFocus(Chars, Char0);
+            } 
             else if (selected == lStatus)
             {
                 charSelectType = CharSelectType.Status;
+                PushFocus(Chars, Char0);
+            }
+            else if (selected == lLimit)
+            {
+                charSelectType = CharSelectType.Limit;
                 PushFocus(Chars, Char0);
             }
             else if (selected == lSave) {
@@ -112,8 +132,25 @@ namespace Braver.UI.Layout {
                         _screen.Reload();
                     }
                     break;
+                case CharSelectType.Magic:
+                    PushFocus(Menu, lMagic);
+                    //_screen.FadeOut(() => _game.PushScreen(new LayoutScreen("MagicMenu", parm: groups.IndexOf(selected))));
+                    break;
+                case CharSelectType.Materia:
+                    PushFocus(Menu, lMateria);
+                    _screen.FadeOut(() => _game.PushScreen(new LayoutScreen("MateriaMenu", parm: groups.IndexOf(selected))));
+                    break;
+                case CharSelectType.Equip:
+                    PushFocus(Menu, lEquip);
+                    _screen.FadeOut(() => _game.PushScreen(new LayoutScreen("EquipMenu", parm: groups.IndexOf(selected))));
+                    break;
                 case CharSelectType.Status:
-                    _game.PushScreen(new LayoutScreen("Status", parm: groups.IndexOf(selected)));
+                    PushFocus(Menu, lStatus);
+                    _screen.FadeOut(() => _game.PushScreen(new LayoutScreen("StatusMenu", parm: groups.IndexOf(selected))));
+                    break;
+                case CharSelectType.Limit:
+                    PushFocus(Menu, lLimit);
+                    //_screen.FadeOut(() => _game.PushScreen(new LayoutScreen("LimitMenu", parm: groups.IndexOf(selected))));
                     break;
             }
 

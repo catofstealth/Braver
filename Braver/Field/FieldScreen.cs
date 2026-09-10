@@ -789,7 +789,7 @@ namespace Braver.Field {
                         if (move != Vector2.Zero) {
                             move.Normalize();
                             move *= 3;
-                            if (input.IsDown(InputKey.Cancel)) {
+                            if (input.IsDown(InputKey.Cancel) || Game.GameOptions.AlwaysRun) {
                                 animSpeed = 2f;
                                 move *= 4f;
                                 desiredAnim = 2;

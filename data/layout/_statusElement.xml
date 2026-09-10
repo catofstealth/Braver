@@ -1,0 +1,91 @@
+﻿<Component xsi:type="Group" X="40" Y="0" W="1280" H="40">
+    <Component xsi:type="Label" X="0" Y="0" Color="Aqua">Effect</Component>
+</Component>
+
+<Component xsi:type="Group" X="0" Y="40" W="1280" H="600">
+
+    <Component xsi:type="Group" X="0" Y="0">
+	
+		<Component xsi:type="Group" X="80" Y="0">
+			<Component xsi:type="Label" X="0" Y="0" Color="Aqua">Attack</Component>
+		</Component>
+	
+		<Component xsi:type="Group" X="200" Y="0" ID="gAttackElement">
+			<Component xsi:type="Label" X="0" Y="0" Color="Gray" ID="lFire">Fire</Component>
+			<Component xsi:type="Label" X="125" Y="0" Color="Gray" ID="lIce">Ice</Component>
+			<Component xsi:type="Label" X="250" Y="0" Color="Gray" ID="lLightning">Lightning</Component>
+			<Component xsi:type="Label" X="375" Y="0" Color="Gray" ID="lEarth">Earth</Component>
+			<Component xsi:type="Label" X="500" Y="0" Color="Gray" ID="lPoison">Poison</Component>
+			<Component xsi:type="Label" X="625" Y="0" Color="Gray" ID="lGravity">Gravity</Component>
+			
+			<Component xsi:type="Label" X="0" Y="40" Color="Gray" ID="lWater">Water</Component>
+			<Component xsi:type="Label" X="125" Y="40" Color="Gray" ID="lWind">Wind</Component>
+			<Component xsi:type="Label" X="250" Y="40" Color="Gray" ID="lHoly">Holy</Component>
+		</Component>
+		
+	</Component>
+	
+	<Component xsi:type="Group" X="0" Y="100">
+	
+		<Component xsi:type="Group" X="80" Y="0">
+			<Component xsi:type="Label" X="0" Y="0" Color="Aqua">Halve</Component>
+		</Component>
+	
+		<Component xsi:type="Group" X="200" Y="0" ID="gHalveElement">
+			<Component xsi:type="Label" X="0" Y="0" Color="Gray" ID="lFire">Fire</Component>
+			<Component xsi:type="Label" X="125" Y="0" Color="Gray" ID="lIce">Ice</Component>
+			<Component xsi:type="Label" X="250" Y="0" Color="Gray" ID="lLightning">Lightning</Component>
+			<Component xsi:type="Label" X="375" Y="0" Color="Gray" ID="lEarth">Earth</Component>
+			<Component xsi:type="Label" X="500" Y="0" Color="Gray" ID="lPoison">Poison</Component>
+			<Component xsi:type="Label" X="625" Y="0" Color="Gray" ID="lGravity">Gravity</Component>
+			
+			<Component xsi:type="Label" X="0" Y="40" Color="Gray" ID="lWater">Water</Component>
+			<Component xsi:type="Label" X="125" Y="40" Color="Gray" ID="lWind">Wind</Component>
+			<Component xsi:type="Label" X="250" Y="40" Color="Gray" ID="lHoly">Holy</Component>
+		</Component>
+		
+	</Component>
+	
+	<Component xsi:type="Group" X="0" Y="200">
+	
+		<Component xsi:type="Group" X="80" Y="0">
+			<Component xsi:type="Label" X="0" Y="0" Color="Aqua">Invalid</Component>
+		</Component>
+	
+		<Component xsi:type="Group" X="200" Y="0" ID="gInvalidElement">
+			<Component xsi:type="Label" X="0" Y="0" Color="Gray" ID="lFire">Fire</Component>
+			<Component xsi:type="Label" X="125" Y="0" Color="Gray" ID="lIce">Ice</Component>
+			<Component xsi:type="Label" X="250" Y="0" Color="Gray" ID="lLightning">Lightning</Component>
+			<Component xsi:type="Label" X="375" Y="0" Color="Gray" ID="lEarth">Earth</Component>
+			<Component xsi:type="Label" X="500" Y="0" Color="Gray" ID="lPoison">Poison</Component>
+			<Component xsi:type="Label" X="625" Y="0" Color="Gray" ID="lGravity">Gravity</Component>
+			
+			<Component xsi:type="Label" X="0" Y="40" Color="Gray" ID="lWater">Water</Component>
+			<Component xsi:type="Label" X="125" Y="40" Color="Gray" ID="lWind">Wind</Component>
+			<Component xsi:type="Label" X="250" Y="40" Color="Gray" ID="lHoly">Holy</Component>
+		</Component>
+		
+	</Component>
+	
+	<Component xsi:type="Group" X="0" Y="300">
+	
+		<Component xsi:type="Group" X="80" Y="0">
+			<Component xsi:type="Label" X="0" Y="0" Color="Aqua">Absorb</Component>
+		</Component>
+	
+		<Component xsi:type="Group" X="200" Y="0" ID="gAbsorbElement">
+			<Component xsi:type="Label" X="0" Y="0" Color="Gray" ID="lFire">Fire</Component>
+			<Component xsi:type="Label" X="125" Y="0" Color="Gray" ID="lIce">Ice</Component>
+			<Component xsi:type="Label" X="250" Y="0" Color="Gray" ID="lLightning">Lightning</Component>
+			<Component xsi:type="Label" X="375" Y="0" Color="Gray" ID="lEarth">Earth</Component>
+			<Component xsi:type="Label" X="500" Y="0" Color="Gray" ID="lPoison">Poison</Component>
+			<Component xsi:type="Label" X="625" Y="0" Color="Gray" ID="lGravity">Gravity</Component>
+			
+			<Component xsi:type="Label" X="0" Y="40" Color="Gray" ID="lWater">Water</Component>
+			<Component xsi:type="Label" X="125" Y="40" Color="Gray" ID="lWind">Wind</Component>
+			<Component xsi:type="Label" X="250" Y="40" Color="Gray" ID="lHoly">Holy</Component>
+		</Component>
+		
+	</Component>
+	
+</Component>

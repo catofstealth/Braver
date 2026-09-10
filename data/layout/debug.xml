@@ -8,6 +8,8 @@
 		<Component xsi:type="Label" X="200" Y="200" ID="lSkipBattleMenu" Click="LabelClick">Skip Battle Menu</Component>
 		<Component xsi:type="Label" X="200" Y="240" ID="lAutoSaveOnFieldEntry" Click="LabelClick">(dynamic)</Component>
 		<Component xsi:type="Label" X="200" Y="280" ID="lSeparateSaveFiles" Click="LabelClick">Separate Save Files</Component>
+				<Component xsi:type="Label" X="200" Y="320" ID="lAlwaysRun" Click="LabelClick">Always Run</Component>
+				<Component xsi:type="Label" X="200" Y="360" ID="lDisplayLegacyStats" Click="LabelClick">DisplayLegacyStats</Component>
 
 	</Root>
 </Layout>

@@ -18,7 +18,8 @@ namespace Braver.UI.Layout {
         public int AP { get; set; }
         public Materia Materia { get; set; }
 
-        public int Level => 1 + Materia.APLevels.TakeWhile(ap => ap < AP).Count();
+        public string Element => Materia.Element == Ficedula.FF7.Element.None ? "" : Materia.Element.ToString();
+        public int Level => 1+ Materia.APLevels.TakeWhile(ap => ap < AP).Count();
         public int? ToNextLevel {
             get {
                 var next = Materia.APLevels.FirstOrDefault(ap => ap > AP);
@@ -44,6 +45,8 @@ namespace Braver.UI.Layout {
         public AvailableMateria CurrentMateria { get; private set; }
 
         private MagicText _magicText;
+
+        private Materias _materias;
 
         public IEnumerable<AvailableMateria> AvailableMateria {
             get => Game.SaveData
@@ -71,7 +74,6 @@ namespace Braver.UI.Layout {
                 .ToList();
         }
 
-        private Materias _materias;
 
         public override void Created(FGame g, LayoutScreen screen) {
             base.Created(g, screen);
@@ -102,6 +104,11 @@ namespace Braver.UI.Layout {
                     return "magic";
                 case CommandMateria:
                     return "command";
+                case IndependentMateria:
+                    return "independent";
+                case SupportMateria:
+                    return "support";
+                case SummonMateria:
                 default:
                     return "summon";
             }
@@ -125,12 +132,14 @@ namespace Braver.UI.Layout {
                         int slot = int.Parse(Focus.ID.Substring(1));
                         ReturnMateria(Character.WeaponMateria[slot]);
                         Character.WeaponMateria[slot] = null;
+                        Character.Recalculate(_game);
                         _screen.Reload();
                         return true;
                     } else if (Focus.ID.StartsWith("A")) {
                         int slot = int.Parse(Focus.ID.Substring(1));
                         ReturnMateria(Character.ArmourMateria[slot]);
                         Character.ArmourMateria[slot] = null;
+                        Character.Recalculate(_game);
                         _screen.Reload();
                         return true;
                     }
@@ -168,10 +177,12 @@ namespace Braver.UI.Layout {
                 removing = Character.WeaponMateria[_focusSlot];
                 Character.WeaponMateria[_focusSlot] = _game.SaveData.MateriaStock[index];
             } else {
-                throw new NotImplementedException();
+                removing = Character.ArmourMateria[_focusSlot];
+                Character.ArmourMateria[_focusSlot] = _game.SaveData.MateriaStock[index];
             }
 
             _game.SaveData.MateriaStock[index] = removing;
+            Character.Recalculate(_game);
             PopFocus();
             _screen.Reload();
         }

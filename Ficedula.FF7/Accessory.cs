@@ -28,7 +28,21 @@ namespace Ficedula.FF7 {
         public EquipElement ElementEffect { get; set; }
         public Elements Elements { get; set; }
         public AccessoryEffect AccessoryEffect { get; set; }
-        public Statuses ProtectStatuses { get; set; }
+        public Statuses StatusDefense { get; set; }
+
+        public IEnumerable<Element> GetElements()
+        {
+            foreach (Enum value in Enum.GetValues(Elements.GetType()))
+                if (Elements.HasFlag(value))
+                    yield return Enum.Parse<Element>(value.ToString());
+        }
+
+        public IEnumerable<Status> GetStatusDefenses()
+        {
+            foreach (Enum value in Enum.GetValues(StatusDefense.GetType()))
+                if (StatusDefense.HasFlag(value))
+                    yield return Enum.Parse<Status>(value.ToString());
+        }
     }
 
     public class AccessoryCollection {
@@ -55,7 +69,7 @@ namespace Ficedula.FF7 {
                 accessory.ElementEffect = (EquipElement)data.ReadU8();
                 accessory.AccessoryEffect = (AccessoryEffect)data.ReadU8();
                 accessory.Elements = (Elements)data.ReadU16();
-                accessory.ProtectStatuses = (Statuses)data.ReadU32();
+                accessory.StatusDefense = (Statuses)data.ReadU32();
                 accessory.EquippableOn = data.ReadU16();
                 accessory.Restrictions = (EquipRestrictions)(~data.ReadU16() & 0x7);
 

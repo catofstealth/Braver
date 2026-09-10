@@ -1,4 +1,5 @@
-﻿<Component xsi:type="Group" X="40" Y="0" W="200" H="640">
+﻿@using Ficedula.FF7
+<Component xsi:type="Group" X="40" Y="0" W="200" H="640">
     <Component xsi:type="Label" X="0" Y="0" Color="Aqua">Strength</Component>
     <Component xsi:type="Label" X="0" Y="25" Color="Aqua">Dexterity  </Component>
     <Component xsi:type="Label" X="0" Y="50" Color="Aqua">Vitality</Component>
@@ -40,12 +41,39 @@
 
 <Component xsi:type="Group" X="540" Y="300" W="740" H="80">
     <Component xsi:type="Label" X="0" Y="0">Wpn : @Model.Weapon.Name</Component>
-    <Component xsi:type="Label" X="0" Y="40"></Component>
+    <Component xsi:type="Group" X="0" Y="40">
+		<Component xsi:type="Group" BackgroundAlpha="0.2" X="0" Y="0" W="300" H="30" InputPassthrough="true">
+			@foreach(int slot in Enumerable.Range(0, Model.Weapon?.MateriaSlots?.Count ?? 0)) {
+				<Component xsi:type="Image" X="@(5 + 30 * slot)" Y="3" ID="W@(slot)">materia_slot</Component>
+				@if (((slot % 2) == 0) && (Model.Weapon.MateriaSlots[slot] == MateriaSlotKind.Linked)) {
+					<Component xsi:type="Image" X="@(25 + 30 * slot)" Y="5">materia_slot_link</Component>
+				}
+				
+				@if (Model.WeaponMateria[slot] != null) {
+					<Component xsi:type="Image" X="@(8 + 30 * slot)" Y="5">materia_@Model.MateriaColor(Model.WeaponMateria[slot].Materia)</Component>
+				}
+			}
+		</Component>
+
+	</Component>
 </Component>
 
 <Component xsi:type="Group" X="540" Y="380" W="740" H="80">
     <Component xsi:type="Label" X="0" Y="0">Arm : @Model.Armour.Name</Component>
-    <Component xsi:type="Label" X="0" Y="40"></Component>
+    <Component xsi:type="Group" X="0" Y="40">
+		<Component xsi:type="Group" BackgroundAlpha="0.2" X="0" Y="0" W="300" H="30" InputPassthrough="true">
+			@foreach(int slot in Enumerable.Range(0, Model.Armour?.MateriaSlots?.Count ?? 0)) {
+				<Component xsi:type="Image" X="@(5 + 30 * slot)" Y="3" ID="W@(slot)">materia_slot</Component>
+				@if (((slot % 2) == 0) && (Model.Armour.MateriaSlots[slot] == MateriaSlotKind.Linked)) {
+					<Component xsi:type="Image" X="@(25 + 30 * slot)" Y="5">materia_slot_link</Component>
+				}
+				
+				@if (Model.ArmourMateria[slot] != null) {
+					<Component xsi:type="Image" X="@(8 + 30 * slot)" Y="5">materia_@Model.MateriaColor(Model.ArmourMateria[slot].Materia)</Component>
+				}
+			}
+		</Component>
+	</Component>
 </Component>
 
 <Component xsi:type="Group" X="540" Y="460" W="740" H="40">
